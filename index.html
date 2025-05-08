@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>معرفة موقعي الحالي</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    button { padding: 15px 30px; font-size: 18px; }
+    #location { margin-top: 20px; font-size: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <h2>اعرف موقعك الجغرافي الحالي</h2>
+  <button onclick="getLocation()">اعرف موقعي</button>
+  <div id="location"></div>
+
+  <script>
+    function getLocation() {
+      const output = document.getElementById("location");
+      if (!navigator.geolocation) {
+        output.innerHTML = "المتصفح لا يدعم تحديد الموقع.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude.toFixed(6);
+        const lng = position.coords.longitude.toFixed(6);
+        output.innerHTML = `خط العرض: ${lat}<br>خط الطول: ${lng}`;
+      }, (error) => {
+        output.innerHTML = `خطأ: لم يتم تحديد الموقع - ${error.message}`;
+      });
+    }
+  </script>
+</body>
+</html>
